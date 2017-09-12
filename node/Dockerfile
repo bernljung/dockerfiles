@@ -2,5 +2,4 @@
 # -v $HOME:$HOME \
 # -v $PWD:$PWD \
 # -w $PWD \
-# node:8-alpine node "$@"
-#
+# $NODE_IMAGE node "$@"
