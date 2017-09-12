@@ -23,11 +23,6 @@ while [ -h "$source" ]; do # resolve $source until the file is no longer a symli
 done
 dockerfile_dir="$( cd -P "$( dirname "$source" )" && pwd )"
 
-if [ $# -eq 0 ]; then
-	echo "Usage: $0 [--test] "
-	exit 1
-fi
-
 if [ "$1" = "--test" ]; then
 	test=1
 fi
