@@ -21,8 +21,7 @@ while [ -h "$source" ]; do # resolve $source until the file is no longer a symli
   source="$(readlink "$source")"
   [[ $source != /* ]] && SOURCE="$DIR/$source" # if $source was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-dir="$( cd -P "$( dirname "$source" )" && pwd )"
-cd $dir
+dockerfile_dir="$( cd -P "$( dirname "$source" )" && pwd )"
 
 if [ $# -eq 0 ]; then
 	echo "Usage: $0 [--test] "
@@ -33,18 +32,18 @@ if [ "$1" = "--test" ]; then
 	test=1
 fi
 
-if [ ! -d $name ]; then # Ensure that directory exists
+if [ ! -d $dockerfile_dir/$name ]; then # Ensure that directory exists
   echo "unable to find container configuration with name $name"
   exit 1
 fi
 
-script="$(sed -n '/docker run/,/^#$/p' $name/Dockerfile \
+script="$(sed -n '/docker run/,/^#$/p' $dockerfile_dir/$name/Dockerfile \
   | sed -e 's/\#//' \
   | sed -e 's/\\//')"
 
 
 if [ -e ${name}/.env ]; then
-  script="$(echo $script | sed -e "s%docker run%docker run --env-file ${name}/.env%g")"
+  script="$(echo $script | sed -e "s%docker run%docker run --env-file $dockerfile_dir/$name/.env%g")"
 fi
 
 if [ $test ]; then
