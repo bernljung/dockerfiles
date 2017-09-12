@@ -42,7 +42,7 @@ script="$(sed -n '/docker run/,/^#$/p' $dockerfile_dir/$name/Dockerfile \
   | sed -e 's/\\//')"
 
 
-if [ -e ${name}/.env ]; then
+if [ -e $dockerfile_dir/$name/.env ]; then
   script="$(echo $script | sed -e "s%docker run%docker run --env-file $dockerfile_dir/$name/.env%g")"
 fi
 
