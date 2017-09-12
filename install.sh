@@ -23,9 +23,9 @@ for name in "$@"; do
     fi
   else
     ln -s $dockerfiles_dir/run.sh $name
+    echo "installed $name"
   fi
 
-  echo "installed $name"
 
 	shift
 done
