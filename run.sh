@@ -14,15 +14,15 @@ function ctrl_c() {
   exit 1
 }
 
-NAME=$(basename "$0")
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+name=$(basename "$0")
+source="${BASH_SOURCE[0]}"
+while [ -h "$source" ]; do # resolve $source until the file is no longer a symlink
+  dir="$( cd -P "$( dirname "$source" )" && pwd )"
+  source="$(readlink "$source")"
+  [[ $source != /* ]] && SOURCE="$DIR/$source" # if $source was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-cd $DIR
+dir="$( cd -P "$( dirname "$source" )" && pwd )"
+cd $dir
 
 if [ $# -eq 0 ]; then
 	echo "Usage: $0 [--test] "
@@ -30,24 +30,24 @@ if [ $# -eq 0 ]; then
 fi
 
 if [ "$1" = "--test" ]; then
-	TEST=1
+	test=1
 fi
 
-if [ ! -d $NAME ]; then # Ensure that directory exists
-  echo "unable to find container configuration with name $NAME"
+if [ ! -d $name ]; then # Ensure that directory exists
+  echo "unable to find container configuration with name $name"
   exit 1
 fi
 
-script=`sed -n '/docker run/,/^#$/p' $NAME/Dockerfile \
+script="$(sed -n '/docker run/,/^#$/p' $name/Dockerfile \
   | sed -e 's/\#//' \
-  | sed -e 's/\\\//'`
+  | sed -e 's/\\\//')"
 
 
-if [ -e ${NAME}/.env ]; then
-  script=`echo $script | sed -e "s%docker run%docker run --env-file ${NAME}/.env%g"`
+if [ -e ${name}/.env ]; then
+  script="$(echo $script | sed -e "s%docker run%docker run --env-file ${name}/.env%g")"
 fi
 
-if [ $TEST ]; then
+if [ $test ]; then
   echo $script
 else
   eval $script
