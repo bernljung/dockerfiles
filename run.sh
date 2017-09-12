@@ -40,7 +40,7 @@ fi
 
 script="$(sed -n '/docker run/,/^#$/p' $name/Dockerfile \
   | sed -e 's/\#//' \
-  | sed -e 's/\\\//')"
+  | sed -e 's/\\//')"
 
 
 if [ -e ${name}/.env ]; then
