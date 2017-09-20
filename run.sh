@@ -14,6 +14,26 @@ function ctrl_c() {
   exit 1
 }
 
+args=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+  --docker)
+  docker_arguments="$2"
+  shift # past argument
+  ;;
+  --test)
+  test=1
+  ;;
+  *)
+  args+=($key)
+  ;;
+esac
+shift
+done
+
 name=$(basename "$0")
 source="${BASH_SOURCE[0]}"
 while [ -h "$source" ]; do # resolve $source until the file is no longer a symlink
@@ -22,10 +42,6 @@ while [ -h "$source" ]; do # resolve $source until the file is no longer a symli
   [[ $source != /* ]] && SOURCE="$DIR/$source" # if $source was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
 dockerfile_dir="$( cd -P "$( dirname "$source" )" && pwd )"
-
-if [ "$1" = "--test" ]; then
-	test=1
-fi
 
 if [ ! -d $dockerfile_dir/$name ]; then # Ensure that directory exists
   echo "unable to find container configuration with name $name"
@@ -36,6 +52,8 @@ script="$(sed -n '/docker run/,/^#$/p' $dockerfile_dir/$name/Dockerfile \
   | sed -e 's/\#//' \
   | sed -e 's/\\//')"
 
+
+script="$(echo $script | sed -e "s/docker run/docker run ${docker_arguments}/g")"
 
 if [ -e $dockerfile_dir/$name/.env ]; then
   script="$(echo $script | sed -e "s%docker run%docker run --env-file $dockerfile_dir/$name/.env%g")"

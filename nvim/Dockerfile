@@ -3,7 +3,7 @@
 # -v $HOME:$HOME \
 # -v $PWD:$PWD \
 # -w $PWD \
-# bernljung/nvim nvim "$@"
+# bernljung/nvim nvim "${args[@]}"
 #
 FROM ubuntu:17.04
 

@@ -6,7 +6,7 @@
 # -v $PWD:$PWD \
 # -w $PWD \
 # -p 4000:4000 \
-# bernljung/mix mix "$@"
+# bernljung/mix mix "${args[@]}"
 #
 FROM elixir:1.5-alpine
 LABEL maintainer "Jimmy Bernljung <jimmy.bernljung@gmail.com>"

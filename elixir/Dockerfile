@@ -2,4 +2,4 @@
 # -v $HOME:$HOME \
 # -v $PWD:$PWD \
 # -w $PWD \
-# $ELIXIR_IMAGE elixir "$@"
+# $ELIXIR_IMAGE elixir "${args[@]}"

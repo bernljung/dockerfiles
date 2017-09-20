@@ -4,7 +4,7 @@
 # -v /usr/local/lib/npm-global:/usr/local/lib/npm-global
 # -v $PWD:$PWD \
 # -w $PWD \
-# bernljung/jest jest "$@"
+# bernljung/jest jest "${args[@]}"
 #
 FROM node:8-alpine
 LABEL maintainer "Jimmy Bernljung <jimmy.bernljung@gmail.com>"

@@ -2,7 +2,7 @@
 #	--log-driver none \
 # -v $PWD:/mnt \
 # -w /mnt \
-#	bernljung/wget "$@"
+#	bernljung/wget "${args[@]}"
 #
 FROM alpine:latest
 LABEL maintainer "Jimmy Bernljung <jimmy.bernljung@gmail.com>"

@@ -2,7 +2,7 @@
 # -v $HOME:$HOME \
 # -v $PWD:$PWD \
 # -w $PWD \
-# bernljung/composer "$@"
+# bernljung/composer "${args[@]}"
 #
 FROM composer:1.5
 

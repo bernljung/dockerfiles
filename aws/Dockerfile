@@ -3,7 +3,7 @@
 # -v $HOME/.aws:/root/.aws \
 # -v $PWD:/mnt \
 # -w /mnt \
-#	bernljung/aws "$@"
+#	bernljung/aws "${args[@]}"
 #
 FROM alpine:latest
 LABEL maintainer "Jimmy Bernljung <jimmy.bernljung@gmail.com>"

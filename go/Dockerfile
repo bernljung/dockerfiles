@@ -2,4 +2,4 @@
 # -v $HOME:$HOME \
 # -v $PWD:$PWD \
 # -w $PWD \
-# $GOLANG_IMAGE go "$@"
+# $GOLANG_IMAGE go "${args[@]}"
