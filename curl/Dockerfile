@@ -1,6 +1,7 @@
 # docker run -it --rm \
 # --log-driver none \
 # -v $PWD:/mnt \
+# -v $dockerfile_dir/docker_bridge_hosts:/etc/hosts \
 # -w /mnt \
 # bernljung/curl "${args[@]}"
 #
