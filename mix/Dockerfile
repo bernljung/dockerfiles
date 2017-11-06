@@ -2,6 +2,7 @@
 # -v /usr/local/bin/node:/usr/local/lib/node \
 # -v /usr/local/bin/inotify-tools:/usr/local/bin/inotify-tools \
 # -v /var/run/docker.sock:/var/run/docker.sock \
+# -v $dockerfile_dir/docker_bridge_hosts:/etc/hosts \
 # -v $HOME:$HOME \
 # -v $PWD:$PWD \
 # -w $PWD \
